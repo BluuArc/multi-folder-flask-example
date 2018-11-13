@@ -60,5 +60,6 @@ This is an example of using multiple modules with a single `server.py` file. The
 
 * Unknown behavior if a server subproject/submodule uses a dependency in its `server.py` file that the root server doesn't use (probably a dependency error?).
 * A better solution would be to have the same `server.py` for each submodule with the same `extendApplication` method, but also include a standalone mode for running each submodule's `server.py` as the server itself.
+  * As it currently is, developer would need to pull the root repository in order to have the `server.py` to develop in a submodule repository
 * Compatibility and whether or not this is the "best" way to import relative modules is largely unknown to me. Many other solutions for relative imports in Python are mentioned in [this StackOverflow post](https://stackoverflow.com/questions/4383571/importing-files-from-different-folder/48859135).
 * Each subproject to be added to the root server will have to be done one by one. It may be worthwhile to find a way to load the submodules programmatically.
