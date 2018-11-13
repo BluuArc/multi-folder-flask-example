@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  This is a sample website that represents the build output of some web framework (e.g. Webpack + Vue.js/React/Angular)
+  <div id="posts">
+    <h1>Posts (Static Data)</h1>
+    <ul>
+      <li>Loading posts</li>
+    </ul>
+  </div>
+  <div id="members">
+    <h1>Members (Using API Endpoint)</h1>
+    <ul>
+      <li>Loading members</li>
+    </ul>
+  </div>
+  <script>
+    const postList = document.querySelector('#posts ul');
+    const memberList = document.querySelector('#members ul');
+    // sample call to a static file
+    fetch('static/posts.json')
+      .then(r => r.json())
+      .then(data => {
+        Array.from(postList.querySelectorAll('li')).forEach(e => e.remove());
+
+        data.forEach(post => {
+          const postElem = document.createElement('li');
+          postElem.innerText = post.name;
+          postList.append(postElem);
+        });
+      }).catch(err => {
+        console.error('posts', err);
+        Array.from(postList.querySelectorAll('li')).forEach(e => e.remove());
+
+        const errorElem = document.createElement('li');
+        errorElem.innerText = 'Error getting post data';
+        postList.append(errorElem);
+      });
+
+    // sample call to an api
+    fetch('api/members')
+      .then(r => r.json())
+      .then(data => {
+        Array.from(memberList.querySelectorAll('li')).forEach(e => e.remove());
+
+        data.forEach(member => {
+          const memberElem = document.createElement('li');
+          memberElem.innerText = member;
+          memberList.append(memberElem);
+        });
+      }).catch(err => {
+        console.error('members', err);
+        Array.from(memberList.querySelectorAll('li')).forEach(e => e.remove());
+
+        const errorElem = document.createElement('li');
+        errorElem.innerText = 'Error getting post data';
+        memberList.append(errorElem);
+      });
+  </script>
+</body>
+</html>
